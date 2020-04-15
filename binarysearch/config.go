@@ -1,8 +1,8 @@
 package binarysearch
 
 // Values used by all functions running binary search algorithm
-var dataRandMax = 1000
-var dataLength  = 90000
+var dataRandMax = 90000
+var dataLength  = 160
 
 // sData is used to keep slice of integers to work on
 var sData []int
