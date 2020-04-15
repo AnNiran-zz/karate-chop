@@ -87,25 +87,46 @@ func mp() int {
 // matches the text inside doc.go
 func MpDescription() string {
 	return fmt.Sprint(
-`moving-pointers is a logic for binary search algorithm implementation
-that searches through a sorted array of values for the given target
-The logic uses 3 pointers - starting, ending and searching pointer - that are used to move
-accross the list after each binary check 
+`"pointers-move" implementation for binary search algorithm searches through the sorted 
+array of values for the given target using three pointers:
+starting, ending and searching pointer - that are used to move accross the list after each binary check 
 
-At the first step starting pointer is set at the first position of the list, ending pointer - 
+At the first step:
+* starting pointer is set at the first position of the list, ending pointer - 
 at the last position and the searching pointer is set at the position at the half length of the list
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+|                                   |                                  |
+ps                                  p                                  pe
 
 After comparing the list value at the searching pointer position with the target:
 * if the target is greater - the searching pointer is moved towards the right with 
-half of its previous value, starting pointer is moved at the previous searching pointer position
-and the ending pointer keeps its current position
+half of its previous value
+* starting pointer is moved at the previous searching pointer position
+* the ending pointer keeps its current position
 
-* if the target is smaller than the searching pointer positioin - it is moved towards the left 
-with half of its previous value and the ending pointer is moved at the previous position of the 
-searching pointer, the starting pointer keeps its position
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+|                                   |                                    |
+ps ->                               p ->                                 pe
+									
+									ps                 p                 pe
+									   
+* if the target is smaller than the searching pointer positioin
+* the searching pointer is moved towards the smallest range with half of its previous value 
+* the ending pointer is moved at the previous position of the searching pointer
+* the starting pointer keeps its position
 
-At each loop the check is made, as well as if the value at the searching pointer position is 
-matching the target.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+|                                   |                                    |
+ps ->                               p ->                                 pe
+									
+									ps                 p              <- pe
+
+									ps        p        pe
+
+
+At each loop the searching pointer key is cut with 50% and the range between starting and ending pointers decreases
+
 If no value is found -1 is returned
 `)
 }

@@ -27,11 +27,11 @@ func TestMp(t *testing.T) {
 	}
 
 	for _, test := range testInput {
-		sData = test.data
 		sData = []int{}
 		keys = []int {}
-		//po = 0
-
+		po = 0
+		
+		sData = test.data
 		target = test.target
 
 		res := mp()

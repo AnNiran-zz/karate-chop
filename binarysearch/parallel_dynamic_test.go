@@ -32,8 +32,6 @@ func TestPds(t *testing.T) {
 		sData = []int{}
 		keys = []int {}
 		po = 0
-		
-		keys = []int{}
 
 		sData = test.data
 		target = test.target

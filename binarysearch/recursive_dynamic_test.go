@@ -28,9 +28,9 @@ func TestRd(t *testing.T) {
 
 	for _, test := range testInput {
 		sData = []int{}
-		keys = []int {}
+		keys = []int{}
 		po = 0
-		
+
 		sData = test.data
 		target = test.target
 

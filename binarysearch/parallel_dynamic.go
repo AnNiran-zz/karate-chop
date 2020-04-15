@@ -184,24 +184,82 @@ func updateRails(key, step int) {
 // matches the doc file
 func PdsDescription() string {
 	return fmt.Sprint(
-`"parallel-dynamic' implementation of the binary search algorithm uses a map of two sub-slices of the data
-to make the checks at each step
-sub-slices are copy of the original generated list (slice), as well as two sub-slices of their keys are kept inside 
-a separate map
+`"parallel-dynamic" implementation of the binary search algorithm uses:
+* a map of two sub-slices of the data to make the checks at each step
+sub-slices are copy of the original generated list (slice) and each of them contains half of the data
+* a map of two sub-slices of data value keys from the original list; each slice in the map is half
+of the size of the original data at the beginning, and matches the values in the oher map
+with their original keys
+* a pointer to move across the two subsices - rails of the data copy and compare values at their positions
+with the target
 
-uses a pointer to make the comparison with the target at the pointer value of the lists in the same manner,
-but instead of cutting one list, uses two and continuously updates each "rail" of the map containing the data,
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - original data slice
+
+- - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - map of two slices with keys matching the values inside the map with data copy
+
+- - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - map of two slices, copy of original data
+					   |
+					   p
+
+At each step continuously updates each "rail" of the map containing the data,
 as well as the "rails" inside the map with the keys
+If the target is greater than both values at p position inside both rails with data:
+* the data "rails" with greater values are kept - rest are moved
+* keys "rails" are also updated to contain the keys for the values inside the data map slices
+* pointer is moved to the right with half of its previous size and points to the new value
+at the laf of the data map slices
 
-* if the target is greater than both values at p position inside both rails with data - the parts holding 
-greater values are kept for the next step
-* if the target is smaller than the both values at p position inside both rails with data - the parts holding 
-smaller values are kept for the nest step
-* if target is smaller than one of the values at p position in the rails, and greater than the other - 
-respective part is kept for the next step - from one rail - the part that holds larger values and from the other -
-the one holding smaller ones
+                        - - - - - - - - - - - -
+                        - - - - - - - - - - - - map of two slices with keys matching the values inside the map with data copy
 
-At each step the keys data map is updated in the same manner
-When the target is met - its key is extracted from the keys map and returned, otherwise -1
+                        - - - - - - - - - - - -
+                        - - - - - - - - - - - - map of two slices, copy of original data
+					   |
+					   p -> 
+					                p
+
+If the target is smaller than both values at p position inside both rails:
+* the data "rails" with smaller values are kept - rest are removed
+* keys "rails" are also updated to contain the keys for the values inside the data map slices
+* pointer is moved to the right with half of its previous size and points to the new value
+at the laf of the data map slices
+
+- - - - - - - - - - - -
+- - - - - - - - - - - -                        map of two slices with keys matching the values inside the map with data copy
+
+- - - - - - - - - - - -
+- - - - - - - - - - - -                        map of two slices, copy of original data
+                       | 
+                    <- p
+		   p
+		   
+If the target is smaller than value at p position in one of the "rails" and greater than the other:
+* the corresponding halves of each "rail" are taken and the data map is updated to 
+contain the new data
+* keys map is updated as well to mirror the data map - to hold the keys of the values from the original slice
+* pointer is moved with half of its previous value
+ 
+                        - - - - - - - - - - - -
+- - - - - - - - - - - -                         map of two slices with keys matching the values inside the map with data copy
+
+                        - - - - - - - - - - - -
+- - - - - - - - - - - -                         map of two slices, copy of original data
+                       | 
+                    <- p
+		   p
+
+- - - - - - - - - - - -                        
+- - - - - - - - - - - -                         map of two slices with keys matching the values inside the map with data copy
+
+- - - - - - - - - - - -
+- - - - - - - - - - - -                         map of two slices, copy of original data
+		  |
+		  p
+
+
+After that the check of p with the values at p is done again and data is cut in halves each time
+When the target is met - its key is extracted from the keys map is returned, otherwise -1
 `)
 }

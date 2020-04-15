@@ -90,11 +90,12 @@ func getKeympi() pointer {
 // with interface; matches the doc.go file
 func MpiDescription() string {
 	return fmt.Sprint(
-`moving-pointers implementation with interface functions in the 
-same way as the "moving-pointers", except that is uses custom defined
-types - pointer for values of the three pointers, and a in interface
+`"pointers-move-int" implementation with interface functions in the same way 
+as the "pointers-move", except that is uses custom defined types - 
+a pointer for values of the three pointers, and a in interface
 that the type implements
+
 this is done only for prepresentational purposes and is not considerably important
-for the code performance and resources optimisation
+for the code performance and resources optimization
 `)
 }

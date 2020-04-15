@@ -57,14 +57,17 @@ func id() int {
 // matches the doc.go file text description
 func IdDescription() string {
 	return fmt.Sprint(
-`"resursive-dynamic" implementation of the binary search algoritm uses minimal values settings:
+`"iterate-dynamic" implementation of the binary search algoritm uses minimal values settings:
 an offset for calculating next range for iteration
 
-At first the offset value is set at 0 and after each iteration, the sData content that is not to be checked
-is removed and the offset is updated:
-* if the value at the p (pointer) position is smaller than the target - offset is updated to cover half of the 
-data plus one position for the remaining part of it
-* if the target value is smaller than the value at the p position - the offset keeps its size
+At first the offset value is set at 0
+If the target is greater than the value at p postion:
+* the remaining data with smaller values is cut from the list
+* offset is moved to the larger values with half of its previous size
+
+If the target is smaller than the value at p:
+* the data part before the last position - containing smaller values, is removed
+* offset is moved to the larger values direction with half of its size
 
 sData is dynamically cut at each step while its length decreases => that is how the potential range is smaller each time
 and target key is found 
