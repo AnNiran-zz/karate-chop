@@ -95,35 +95,16 @@ At the first step:
 * starting pointer is set at the first position of the list, ending pointer - 
 at the last position and the searching pointer is set at the position at the half length of the list
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-|                                   |                                  |
-ps                                  p                                  pe
-
 After comparing the list value at the searching pointer position with the target:
 * if the target is greater - the searching pointer is moved towards the right with 
 half of its previous value
 * starting pointer is moved at the previous searching pointer position
 * the ending pointer keeps its current position
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-|                                   |                                    |
-ps ->                               p ->                                 pe
-									
-									ps                 p                 pe
 									   
 * if the target is smaller than the searching pointer positioin
 * the searching pointer is moved towards the smallest range with half of its previous value 
 * the ending pointer is moved at the previous position of the searching pointer
 * the starting pointer keeps its position
-
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-|                                   |                                    |
-ps ->                               p ->                                 pe
-									
-									ps                 p              <- pe
-
-									ps        p        pe
-
 
 At each loop the searching pointer key is cut with 50% and the range between starting and ending pointers decreases
 

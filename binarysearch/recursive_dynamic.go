@@ -92,33 +92,15 @@ a copy of the data and a pointer
 Initially the copy of the generated data contains all of it, as well as the keys slice 
 contains all keys, the pointer is set at the half of the original data lenght position
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  keys
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  copy data
-										|
-										p
-
 At each step when the value at the pointer position is compared to the target
 If the target is greater than the value at p:
 * the pointer is moved to towards the greater values
 * length of the data and keys lists are cut with 50% of their lengths
 
-                                        - - - - - - - - - - - - - - - - - - - - - - -  keys
-                                        - - - - - - - - - - - - - - - - - - - - - - -  copy data
-										|
-										p ->                      |
-																  p
-											
 If the target is smaller than the value at p:
 * the pointer is moved towards the smaller values with half of its previous size
 * data copy and keys parts after the previous pointer position are removed
 
-                                        - - - - - - - - - - - - - -                    keys
-                                        - - - - - - - - - - - - - -                    copy data
-                                        |
-                                        p ->                      |
-						                            |          <- p
-													p
-													
 After each step the size of keys and data copy decreases as well as the potential range values
 for searcging
 When the target is met - the value at the p from keys list is returned, otherwise -1`)

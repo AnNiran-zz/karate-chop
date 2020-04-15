@@ -110,30 +110,16 @@ func FsDescription() string {
 search through the list
 At the begining the pointer is set at the middle list position and the step size is set to half length of the list
 
--------- step size -------
-- - - - - - - - - - - - - - - - - - - - - - - - -
-						 |
-						 p = step
-
 After comparing the target with the value at position p of the list:
 * if the target is smaller than the value at p:
 the step size is cut with 50% if it is larger than 1
 step is "flipped" to the smaller range of values in the list
-            ---step size--
-- - - - - - - - - - - - - - - - - - - - - - - - -
-			|            |
-			p1          <-
 
 p is moved at the new position - decreasing its key with the new step size
 
 * if the target is greater than the value at p:
 step size is cut with 50% if it is larger than 1
 the step is "flipped" to the range with larger values in the list
-                   ---ss--
-- - - - - - - - - - - - - - - - - - - - - - - - - 
-            |      |     |
-			p1     |    <-
-			->     p2
 
 At each step the step size is decreased with 50% which decreases the potential range of values
 to be searched

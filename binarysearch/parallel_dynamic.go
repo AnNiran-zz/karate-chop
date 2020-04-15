@@ -193,16 +193,6 @@ with their original keys
 * a pointer to move across the two subsices - rails of the data copy and compare values at their positions
 with the target
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - original data slice
-
-- - - - - - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - - - - - - map of two slices with keys matching the values inside the map with data copy
-
-- - - - - - - - - - - - - - - - - - - - - - - -
-- - - - - - - - - - - - - - - - - - - - - - - - map of two slices, copy of original data
-					   |
-					   p
-
 At each step continuously updates each "rail" of the map containing the data,
 as well as the "rails" inside the map with the keys
 If the target is greater than both values at p position inside both rails with data:
@@ -211,53 +201,17 @@ If the target is greater than both values at p position inside both rails with d
 * pointer is moved to the right with half of its previous size and points to the new value
 at the laf of the data map slices
 
-                        - - - - - - - - - - - -
-                        - - - - - - - - - - - - map of two slices with keys matching the values inside the map with data copy
-
-                        - - - - - - - - - - - -
-                        - - - - - - - - - - - - map of two slices, copy of original data
-					   |
-					   p -> 
-					                p
-
 If the target is smaller than both values at p position inside both rails:
 * the data "rails" with smaller values are kept - rest are removed
 * keys "rails" are also updated to contain the keys for the values inside the data map slices
 * pointer is moved to the right with half of its previous size and points to the new value
 at the laf of the data map slices
-
-- - - - - - - - - - - -
-- - - - - - - - - - - -                        map of two slices with keys matching the values inside the map with data copy
-
-- - - - - - - - - - - -
-- - - - - - - - - - - -                        map of two slices, copy of original data
-                       | 
-                    <- p
-		   p
 		   
 If the target is smaller than value at p position in one of the "rails" and greater than the other:
 * the corresponding halves of each "rail" are taken and the data map is updated to 
 contain the new data
 * keys map is updated as well to mirror the data map - to hold the keys of the values from the original slice
 * pointer is moved with half of its previous value
- 
-                        - - - - - - - - - - - -
-- - - - - - - - - - - -                         map of two slices with keys matching the values inside the map with data copy
-
-                        - - - - - - - - - - - -
-- - - - - - - - - - - -                         map of two slices, copy of original data
-                       | 
-                    <- p
-		   p
-
-- - - - - - - - - - - -                        
-- - - - - - - - - - - -                         map of two slices with keys matching the values inside the map with data copy
-
-- - - - - - - - - - - -
-- - - - - - - - - - - -                         map of two slices, copy of original data
-		  |
-		  p
-
 
 After that the check of p with the values at p is done again and data is cut in halves each time
 When the target is met - its key is extracted from the keys map is returned, otherwise -1
